@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي الأسبوع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .challenge-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .trophy {
+            font-size: 60px;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .goals-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .goal-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .goal-item:hover {
+            transform: translateX(-5px);
+            border-color: #667eea;
+        }
+
+        .goal-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .goal-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            padding: 8px;
+            color: #333;
+        }
+
+        .goal-input:focus {
+            outline: none;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .progress-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .progress-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 8;
+        }
+
+        .progress-ring-fill {
+            fill: none;
+            stroke: white;
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 1s ease-out;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .progress-slider {
+            width: 100%;
+            margin-top: 15px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+        }
+
+        .progress-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .progress-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 18px;
+            margin-top: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .save-btn:active {
+            transform: translateY(0);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="challenge-card">
+        <div class="header">
+            <div class="trophy">🏆</div>
+            <h1 class="title">تحدي الأسبوع</h1>
+            <p class="subtitle">حدد أهدافك وحققها!</p>
+        </div>
+
+        <div class="input-group">
+            <label>👤 الاسم</label>
+            <input type="text" id="nameInput" placeholder="اكتب اسمك هنا...">
+        </div>
+
+        <div class="goals-section">
+            <div class="section-title">
+                <span>🎯</span>
+                <span>الأهداف الثلاثة</span>
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-number">1</div>
+                <input type="text" class="goal-input" id="goal1" placeholder="الهدف الأول...">
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-number">2</div>
+                <input type="text" class="goal-input" id="goal2" placeholder="الهدف الثاني...">
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-number">3</div>
+                <input type="text" class="goal-input" id="goal3" placeholder="الهدف الثالث...">
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-title">📊 نسبة الإنجاز النهائية</div>
+            <div class="progress-circle">
+                <svg class="progress-ring" width="120" height="120">
+                    <circle class="progress-ring-bg" cx="60" cy="60" r="45"></circle>
+                    <circle class="progress-ring-fill" id="progressRing" cx="60" cy="60" r="45"></circle>
+                </svg>
+                <div class="progress-text" id="progressText">0%</div>
+            </div>
+            <input type="range" class="progress-slider" id="progressSlider" min="0" max="100" value="0">
+        </div>
+
+        <button class="save-btn" onclick="saveChallenge()">💾 حفظ التحدي</button>
+    </div>
+
+    <script>
+        const slider = document.getElementById('progressSlider');
+        const progressRing = document.getElementById('progressRing');
+        const progressText = document.getElementById('progressText');
+        const circumference = 2 * Math.PI * 45;
+
+        progressRing.style.strokeDasharray = circumference;
+
+        slider.addEventListener('input', function() {
+            const value = this.value;
+            const offset = circumference - (value / 100) * circumference;
+            progressRing.style.strokeDashoffset = offset;
+            progressText.textContent = value + '%';
+        });
+
+        function saveChallenge() {
+            const name = document.getElementById('nameInput').value;
+            const goal1 = document.getElementById('goal1').value;
+            const goal2 = document.getElementById('goal2').value;
+            const goal3 = document.getElementById('goal3').value;
+            const progress = slider.value;
+
+            if (!name || !goal1 || !goal2 || !goal3) {
+                alert('⚠️ يرجى ملء جميع الحقول');
+                return;
+            }
+
+            // Create confetti effect
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+
+            setTimeout(() => {
+                alert(`🎉 تم حفظ تحدي الأسبوع!\n\nالاسم: ${name}\nالأهداف: ${goal1}, ${goal2}, ${goal3}\nنسبة الإنجاز: ${progress}%`);
+            }, 300);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe'][Math.floor(Math.random() * 5)];
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
